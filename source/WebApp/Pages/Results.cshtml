@@ -1,0 +1,55 @@
+﻿@page
+@using Modules.Utilities
+@model WebApp.Pages.ResultsModel
+@{
+}
+<div style="display: flex; flex-flow: row wrap; justify-content: flex-start;">
+    <div class="tournament" style="min-width: 300px; width: auto;">
+        <p><b>Sport: </b>@Model.Tournament.SportType.GetDescription()</p>
+        <p><b>Tournament system: </b>@Model.Tournament.TournamentSystem.Name.ToTitleCase()</p> 
+        <p><b>Location: </b>@Model.Tournament.Location</p>
+        <p><b>Start date: </b>@Model.Tournament.DateRange.Start</p> <!-- .ToString("dd-MMM-yyyy hh:mm tt")-->
+        <p><b>End date: </b>@Model.Tournament.DateRange.End</p>
+        <p><b>Players: </b>@Model.Tournament.Players.Count / @Model.Tournament.CapacityRange.Max</p>
+        <p><b>Status: </b>@Model.Tournament.Status</p>
+        <p><b>Description: </b>@Model.Tournament.Description</p>
+    </div>
+</div>
+<hr>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Round #</th>
+      <th scope="col">Match #</th>
+      <th scope="col">Game #</th>
+      <th scope="col">Players</th>
+      <th scope="col">Result</th>
+      <th scope="col">Winner</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (int r = 0; r < Model.Tournament.Schedule.Rounds.Count; r++)
+    {
+        @for (int m = 0; m < Model.Tournament.Schedule.Rounds[r].Matches.Count; m++)
+        {
+            @for (int g = 0; g < Model.Tournament.Schedule.Rounds[r].Matches[m].Games.Count; g++)
+            {
+            <tr>
+                <td>@(r + 1)</td>
+                <td>@(m + 1)</td>
+                <td>@(g + 1)</td>
+                <td>
+                    @Model.Tournament.Schedule.Rounds[r].Matches[m].Players.First - 
+                    @Model.Tournament.Schedule.Rounds[r].Matches[m].Players.Second
+                </td>
+                <td>
+                    @Model.Tournament.Schedule.Rounds[r].Matches[m].Games[g].Scores.First - 
+                    @Model.Tournament.Schedule.Rounds[r].Matches[m].Games[g].Scores.Second
+                </td>
+                <td>@Model.Tournament.Schedule.Rounds[r].Matches[m].Winner</td>
+            </tr>
+            }
+        }
+    }
+  </tbody>
+</table>

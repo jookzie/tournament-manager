@@ -1,0 +1,47 @@
+﻿@page
+@using Modules.Utilities
+@using System.Globalization
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<h1 style="text-align: center;">Tournaments</h1>
+<p style="text-align: center;color: red">@TempData["ErrorMessage"]</p>
+<div style="display: flex; flex-flow: row wrap; justify-content: center;">
+    @foreach (var t in Model.Tournaments)
+    {
+        <form method="post">
+            <div class="tournament">
+                <p><b>Sport: </b>@t.SportType.GetDescription()</p>
+                <p><b>Tournament system: </b>@t.TournamentSystem.Name.ToTitleCase()</p>
+                <p><b>Location: </b>@t.Location</p>
+                <p><b>Description: </b>@t.Description</p>
+                <p><b>Start date: </b>@t.DateRange.Start</p> <!-- .ToString("dd-MMM-yyyy hh:mm tt")-->
+                <p><b>End date: </b>@t.DateRange.End</p>
+                <p><b>Players: </b>@t.Players.Count / @t.CapacityRange.Max</p>
+                <p><b>Status: </b>@t.Status</p>
+                @if (t.IsConcluded)
+                {
+                    <input onclick="location.href='/Results?id=@t.ID'" type="button" value="View results" style="background-color: lightblue">
+                    <input onclick="location.href='/Scoreboard?id=@t.ID'" type="button" value="View scoreboard" style="background-color: lightblue">
+                }
+                else if (t.IsScheduled)
+                {
+                    <input onclick="location.href='/Schedule?id=@t.ID'" type="button" value="View schedule" style="background-color: lightcyan">
+                }
+                else if (User.Identity.IsAuthenticated && t.Players.Contains(Model.AuthenticatedUser))
+                {
+                    <input asp-page-handler="Withdraw" asp-route-tournID="@t.ID" type="submit" value="Withdraw" style="background-color: lightcoral">
+                }
+                else if (t.IsAvailable)
+                {
+                    <input asp-page-handler="Register" asp-route-tournID="@t.ID" type="submit" value="Join tournament" style="background-color: lightgreen">
+                }
+                else
+                {
+                    <input type="button" value="Unavailable" style="background-color: lightcoral">
+                }
+            </div>
+        </form>
+    }
+</div>

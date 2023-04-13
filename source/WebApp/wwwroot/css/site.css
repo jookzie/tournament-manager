@@ -1,0 +1,68 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+/* My CSS */
+
+* {
+    /* Hide scrollbars, but keep functionality for: */
+    -ms-overflow-style: none;
+}
+    *::-webkit-scrollbar {
+        /* Hide scrollbar for Chrome, Safari and Opera*/
+        display: none;
+    }
+header{
+    filter: brightness(90%);
+}
+
+ul {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    text-decoration: none;
+}
+
+.tournament {
+    display: flex;
+    flex-flow: column nowrap;
+    border: 2px solid black;
+    width: 300px;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 15px;
+}
+    .tournament p {
+        margin: 0;
+        word-wrap: break-word;
+    }
+    .tournament input {
+        background-color: white;
+        width: auto;
+        margin-top: 10px;
+        height: 35px;
+        border-radius: 5px;
+        border-style: solid;
+    }
+        .tournament input:hover {
+            filter: brightness(90%);
+        }
+        .tournament input:active {
+            filter: brightness(80%);
+        }
+        

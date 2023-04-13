@@ -1,0 +1,22 @@
+﻿@page
+@model WebApp.Pages.LoginModel
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
+<form method="post">
+    <div style="display: flex; justify-content: center; height: 50vh; align-items: center;">
+        <div style="display: flex; flex-flow: column nowrap">
+          <h1>Log in</h1>
+          <label asp-for="UserAuth.Email">Email</label>
+          <input asp-for="UserAuth.Email" type="text" placeholder="Enter Email" style="width: 300px" required>
+          <span style="color: red" asp-validation-for="UserAuth.Email"></span>
+          <label asp-for="UserAuth.Password">Password</label>
+          <input asp-for="UserAuth.Password" type="password" placeholder="Enter Password" style="max-width: 300px" required>
+          <span style="color: red" asp-validation-for="UserAuth.Password"></span>
+          <button type="submit" value="Submit" style="max-width: 300px;margin-top: 15px;border-radius: 10px;">Log in</button>  
+          <p style="width: 300px; word-wrap: break-word;color: red">@TempData["ErrorMessage"]</p>
+        </div>
+    </div>
+    
+ </form>

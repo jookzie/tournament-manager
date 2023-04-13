@@ -1,0 +1,33 @@
+﻿@page
+@model WebApp.Pages.RegisterModel
+@{
+}
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
+<form method="post">
+<div style="display: flex; justify-content: center; height: 70vh; align-items: center;">
+    <div style="display: flex; flex-flow: column nowrap;">
+          <h1>Register</h1>
+          <label asp-for="UserRegister.Name" >Name</label>
+          <input asp-for="UserRegister.Name" placeholder="Enter Name" style="width: 300px" required>
+          <span style="color: red" asp-validation-for="UserRegister.Name"></span>
+      
+          <label asp-for="UserRegister.Email">Email</label>
+          <input asp-for="UserRegister.Email"type="text" placeholder="Enter Email" style="width: 300px" required>
+          <span style="color: red" asp-validation-for="UserRegister.Email"></span>
+      
+          <label asp-for="UserRegister.Password">Password</label>
+          <input asp-for="UserRegister.Password" type="password" placeholder="Enter Password" style="width: 300px" required>
+          <span style="color: red" asp-validation-for="UserRegister.Password"></span>
+      
+          <label asp-for="UserRegister.ConfirmPassword">Confirm password</label>
+          <input asp-for="UserRegister.ConfirmPassword" type="password" placeholder="Enter Password Again" style="width: 300px" required>
+          <span style="color: red" asp-validation-for="UserRegister.ConfirmPassword"></span>
+      
+          <button type="submit" value="Submit" style="max-width: 300px;margin-top: 15px;border-radius: 10px; height: 35px">Register</button>
+          <p style="width: 300px; word-wrap: break-word;color: red">@TempData["ErrorMessage"]</p>
+    </div>
+</div>
+</form>

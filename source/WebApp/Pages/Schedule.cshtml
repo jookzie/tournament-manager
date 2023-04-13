@@ -1,0 +1,50 @@
+﻿@page
+@using Modules.Utilities
+@model WebApp.Pages.ScheduleModel
+@{
+}
+<div style="display: flex; flex-flow: row wrap; justify-content: flex-start;">
+    <div class="tournament" style="min-width: 300px; width: auto;">
+        <p><b>Sport: </b>@Model.Tournament.SportType.GetDescription()</p>
+        <p><b>Tournament system: </b>@Model.Tournament.TournamentSystem.Name.ToTitleCase()</p> 
+        <p><b>Location: </b>@Model.Tournament.Location</p>
+        <p><b>Start date: </b>@Model.Tournament.DateRange.Start</p> <!-- .ToString("dd-MMM-yyyy hh:mm tt")-->
+        <p><b>End date: </b>@Model.Tournament.DateRange.End</p>
+        <p><b>Players: </b>@Model.Tournament.Players.Count / @Model.Tournament.CapacityRange.Max</p>
+        <p><b>Status: </b>@Model.Tournament.Status</p>
+        <p><b>Description: </b>@Model.Tournament.Description</p>
+    </div>
+</div>
+<hr>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Round #</th>
+      @for (int i = 0; i < Model.Tournament.Schedule.Rounds[0].Matches.Count; i++)
+      {
+        <th scope="col">Match @(i+1)</th>
+      }
+      @if(Model.Tournament.Players.Count % 2 == 1)
+      {
+        <th scope="col">Skipper</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (int i = 0; i < Model.Tournament.Schedule.Rounds.Count; i++)
+    {
+        <tr>
+            <td>@(i+1)</td>
+            @for (int j = 0; j < Model.Tournament.Schedule.Rounds[i].Matches.Count; j++)
+            {
+                <td>
+                    @Model.Tournament.Schedule.Rounds[i].Matches[j].Players.First - 
+                    @Model.Tournament.Schedule.Rounds[i].Matches[j].Players.Second
+                </td>
+            }
+
+            <td>@(Model.Tournament.Schedule.Rounds[i].Skipper?.Name ?? "")</td>
+        </tr>
+    }
+  </tbody>
+</table>

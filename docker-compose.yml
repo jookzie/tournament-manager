@@ -1,0 +1,38 @@
+# For development use
+# Run all by executing: docker compose up
+version: "3.9"
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=duelsys
+      - MYSQL_ROOT_PASSWORD=root1234
+    ports:
+      - 3306:3306
+    networks:
+      - backend
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root1234
+      - PMA_ARBITRARY=1
+    logging:
+      driver: none
+
+
+volumes:
+  mysql-data:
+
+networks:
+  backend:
+    driver: bridge

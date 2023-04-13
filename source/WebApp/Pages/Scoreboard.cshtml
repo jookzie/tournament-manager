@@ -1,0 +1,37 @@
+﻿@page
+@using Modules.Utilities
+@model WebApp.Pages.ScoreboardModel
+@{
+}
+<div style="display: flex; flex-flow: row wrap; justify-content: flex-start;">
+    <div class="tournament" style="min-width: 300px; width: auto;">
+        <p><b>Sport: </b>@Model.Tournament.SportType.GetDescription()</p>
+        <p><b>Tournament system: </b>@Model.Tournament.TournamentSystem.Name.ToTitleCase()</p> 
+        <p><b>Location: </b>@Model.Tournament.Location</p>
+        <p><b>Start date: </b>@Model.Tournament.DateRange.Start</p> <!-- .ToString("dd-MMM-yyyy hh:mm tt")-->
+        <p><b>End date: </b>@Model.Tournament.DateRange.End</p>
+        <p><b>Players: </b>@Model.Tournament.Players.Count / @Model.Tournament.CapacityRange.Max</p>
+        <p><b>Status: </b>@Model.Tournament.Status</p>
+        <p><b>Description: </b>@Model.Tournament.Description</p>
+    </div>
+</div>
+<hr>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Rank #</th>
+      <th scope="col">Player</th>
+      <th scope="col">Wins</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (int i = 0; i < Model.Scoreboard.Count; i++)
+    {
+        <tr>
+            <td>@(i+1) @(i == 0 ? "(Gold)" : i == 1 ? "(Silver)" : i == 2 ? "(Bronze)" : "")</td>
+            <td>@Model.Scoreboard[i].Key</td>
+            <td>@Model.Scoreboard[i].Key</td>
+        </tr>
+    }
+  </tbody>
+</table>
